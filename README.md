@@ -9,7 +9,11 @@ Mocking up web app with <b>Vitesse</b><sup><em>(speed)</em></sup><br>
 <br>
 
 <p align='center'>
-<a href="https://vitesse.netlify.app/">Live Demo</a>
+<a href="https://get-kairos.netlify.app/">GetKairos Demo</a>
+</p>
+
+<p align='center'>
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0127079f-1231-41c3-9926-399fa51a4fe8/deploy-status)](https://app.netlify.com/sites/get-kairos/deploys)
 </p>
 
 <br>

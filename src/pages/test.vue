@@ -1,6 +1,6 @@
 <!-- https://github.com/quasarframework/quasar-ui-qcalendar/blob/next/docs/src/examples/ResourceChildren.vue -->
 <script setup lang="ts">
-import { QCalendarResource, today } from '@quasar/quasar-ui-qcalendar/src/QCalendarResource.js'
+import { QCalendarResource, today } from '@quasar/quasar-ui-qcalendar'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarVariables.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarResource.sass'

@@ -5,6 +5,22 @@ import '@quasar/quasar-ui-qcalendar/src/QCalendarVariables.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarResource.sass'
 
+import axios from 'axios'
+const http = axios.create({
+  baseURL: 'https://getkairos.glitch.me',
+  headers: {
+    'Content-type': 'application/json',
+  },
+})
+const bookingType = ref('')
+
+http.get('/bookingType')
+  .then((response) => {
+    bookingType.value = response.data
+  })
+  .catch((e) => {
+  })
+
 const selectedDate = ref(today())
 const resources = ref([
   { id: '1', name: 'John' },
@@ -33,6 +49,7 @@ const resources = ref([
 
 </script>
 <template>
+  Booking types:  {{ bookingType }}
   <div class="row justify-center">
     <div style="display: flex; max-width: 800px; width: 100%; height: 400px;">
       <q-calendar-resource

@@ -1,11 +1,13 @@
 <!-- https://github.com/quasarframework/quasar-ui-qcalendar/blob/next/docs/src/examples/ResourceChildren.vue -->
 <script setup lang="ts">
+/* eslint-disable no-console */
 import { QCalendarResource, today } from '@quasar/quasar-ui-qcalendar'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarVariables.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarResource.sass'
-
 import axios from 'axios'
+import { initAPI } from '~/remote/api'
+
 const http = axios.create({
   baseURL: 'https://getkairos.glitch.me',
   headers: {
@@ -14,13 +16,41 @@ const http = axios.create({
 })
 const bookingType = ref('')
 
-http.get('/bookingType')
+const api = initAPI('session storage')
+api.deleteAllBookableTypes()
+console.log(api.getAllBookableTypes())
+api.addBookableType('test')
+api.addBookableType('test 2')
+api.deleteBookableType('test')
+console.log(api.getAllBookableTypes())
+
+// const postData = {
+//   title: 'post title',
+//   description: 'some data',
+// }
+
+// const res = await http.post('/posts', postData)
+// const result = ref({
+//   status: `${res.status}-${res.statusText}`,
+//   headers: res.headers,
+//   data: res.data,
+// })
+// http.post('/posts')
+
+http.get('/posts')
   .then((response) => {
     bookingType.value = response.data
   })
   .catch((e) => {
   })
 
+// [
+//   {
+//     "id": 0,
+//     "title": "First post!",
+//     "content": "My first content!"
+//   }
+// ]
 const selectedDate = ref(today())
 const resources = ref([
   { id: '1', name: 'John' },
@@ -49,8 +79,9 @@ const resources = ref([
 
 </script>
 <template>
-  Booking types:  {{ bookingType }}
-  <div class="row justify-center">
+  Response:  {{ bookingType }}
+  <!-- result: {{ result }} -->
+  <!-- <div class="row justify-center">
     <div style="display: flex; max-width: 800px; width: 100%; height: 400px;">
       <q-calendar-resource
         ref="calendar"
@@ -61,5 +92,5 @@ const resources = ref([
         bordered
       />
     </div>
-  </div>
+  </div> -->
 </template>

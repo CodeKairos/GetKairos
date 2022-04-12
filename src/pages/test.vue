@@ -81,7 +81,7 @@ const resources = ref([
 <template>
   Response:  {{ bookingType }}
   <!-- result: {{ result }} -->
-  <!-- <div class="row justify-center">
+  <div class="row justify-center">
     <div style="display: flex; max-width: 800px; width: 100%; height: 400px;">
       <q-calendar-resource
         ref="calendar"
@@ -92,5 +92,5 @@ const resources = ref([
         bordered
       />
     </div>
-  </div> -->
+  </div>
 </template>

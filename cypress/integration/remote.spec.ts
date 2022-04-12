@@ -1,4 +1,5 @@
 import { initAPI } from '~/remote/api'
+const api = initAPI('session storage')
 
 context('Remote API', () => {
   // beforeEach(() => {
@@ -13,7 +14,6 @@ context('Remote API', () => {
   // })
 
   it('is empty', () => {
-    const api = initAPI('session storage')
     api.addBookableType('some type')
     api.deleteAllBookableTypes()
     const data = api.getAllBookableTypes()

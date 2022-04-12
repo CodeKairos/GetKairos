@@ -3,5 +3,4 @@ export interface ApiContract {
   addBookableType(name: string): void
   getAllBookableTypes(): string[]
   deleteBookableType(name: string): void
-  deleteAllBookableTypes(): void
 }

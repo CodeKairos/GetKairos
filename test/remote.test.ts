@@ -1,18 +1,10 @@
+import { describe, expect, it } from 'vitest'
+
 import { initAPI } from '~/remote/api'
+
 const api = initAPI('session storage')
 
-context('Remote API', () => {
-  // beforeEach(() => {
-  //   cy.visit('/')
-  // })
-
-  // before(() => {
-  // })
-
-  // it('can add numbers', () => {
-  //   expect(add(1, 2)).to.eq(3)
-  // })
-
+describe('Remote API', () => {
   it('can add and remove a bookable type', () => {
     const initial = api.getAllBookableTypes().length
     const additionaType = 'some type'

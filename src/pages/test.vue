@@ -17,12 +17,13 @@ const http = axios.create({
 const bookingType = ref('')
 
 const api = initAPI('session storage')
-api.deleteAllBookableTypes()
+// api.deleteAllBookableTypes()
 console.log(api.getAllBookableTypes())
 api.addBookableType('test')
 api.addBookableType('test 2')
 api.deleteBookableType('test')
 console.log(api.getAllBookableTypes())
+api.deleteBookableType('test 2')
 
 // const postData = {
 //   title: 'post title',

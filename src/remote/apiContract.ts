@@ -1,6 +1,5 @@
 export interface ApiContract {
-  name: string
-  addBookableType(name: string): void
-  getAllBookableTypes(): string[]
-  deleteBookableType(name: string): void
+  addBookableType(name: string): Promise<void>
+  getAllBookableTypes(): Promise<string[]>
+  deleteBookableType(name: string): Promise<void>
 }

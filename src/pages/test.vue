@@ -5,33 +5,38 @@ import { QCalendarResource, today } from '@quasar/quasar-ui-qcalendar'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarVariables.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarResource.sass'
-import axios from 'axios'
+// import axios from 'axios'
 import { initAPI } from '~/remote/api'
 import getKairosConfig from '~/getkairos.config.json'
 
-const http = axios.create({
-  baseURL: getKairosConfig.jsonServerBaseURL,
-  headers: {
-    'Content-type': 'application/json',
-  },
-})
+// const http = axios.create({
+//   baseURL: getKairosConfig.jsonServerBaseURL,
+//   headers: {
+//     'Content-type': 'application/json',
+//   },
+// })
 const bookingType = ref('')
 
-const api = initAPI(getKairosConfig.apiProvider)
+const api = initAPI(
+  getKairosConfig.apiProvider,
+  getKairosConfig.jsonServerBaseURL,
+)
 // api.deleteAllBookableTypes()
-console.log(api.getAllBookableTypes())
-api.addBookableType('test11')
-api.addBookableType('test1')
-api.deleteBookableType('test1')
-console.log(api.getAllBookableTypes())
-api.deleteBookableType('test11')
+const initialTypes = await api.getAllBookableTypes()
+console.log('before:', initialTypes)
+await api.addBookableType('test11')
+await api.addBookableType('some type3')
+// await api.deleteBookableType('some type3')
+console.log('after:',
+  await api.getAllBookableTypes())
+await api.deleteBookableType('test11')
 
 // const postData = {
 //   title: 'post title',
 //   description: 'some data',
 // }
 
-// const res = await http.post('/posts', postData)
+// const res = await http.post('/posts2', postData)
 // const result = ref({
 //   status: `${res.status}-${res.statusText}`,
 //   headers: res.headers,
@@ -39,12 +44,12 @@ api.deleteBookableType('test11')
 // })
 // http.post('/posts')
 
-http.get('/posts')
-  .then((response) => {
-    bookingType.value = response.data
-  })
-  .catch((e) => {
-  })
+// http.get('/posts')
+//   .then((response) => {
+//     bookingType.value = response.data
+//   })
+//   .catch((e) => {
+//   })
 
 // [
 //   {
@@ -82,6 +87,7 @@ const resources = ref([
 </script>
 <template>
   Response:  {{ bookingType }}
+  <br>
   <!-- result: {{ result }} -->
   <div class="row justify-center">
     <div style="display: flex; max-width: 800px; width: 100%; height: 400px;">

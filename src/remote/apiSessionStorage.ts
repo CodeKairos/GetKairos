@@ -1,27 +1,22 @@
 import type { ApiContract } from '~/remote/apiContract'
-const bookableTypes = 'getKairosBookableTypes'
-function setBookableTypes(data: string[]): void {
+const bookableTypes = 'kairosBookableTypes'
+async function setBookableTypes(data: string[]): Promise<void> {
   window.sessionStorage.setItem(bookableTypes, JSON.stringify(data))
 }
 
 class ApiSessionStorage implements ApiContract {
-  name = 'session storage'
-  getAllBookableTypes() {
+  async getAllBookableTypes() {
     return JSON.parse(window.sessionStorage.getItem(bookableTypes) || '[]')
   }
 
-  addBookableType(name: string): void {
-    const data = this.getAllBookableTypes()
+  async addBookableType(name: string): Promise<void> {
+    const data = await this.getAllBookableTypes()
     data.push(name)
     setBookableTypes(data)
   }
 
-  deleteAllBookableTypes(): void {
-    window.sessionStorage.removeItem(bookableTypes)
-  }
-
-  deleteBookableType(name: string): void {
-    const data = this.getAllBookableTypes()
+  async deleteBookableType(name: string): Promise<void> {
+    const data = await this.getAllBookableTypes()
     const filteredData = data.filter((e: string) => e !== name)
     setBookableTypes(filteredData)
   }

@@ -4,7 +4,7 @@ context('Basic', () => {
     cy.visit('/')
   })
 
-  it('basic nav', () => {
+  it.skip('basic nav', () => {
     cy.url()
       .should('eq', 'http://localhost:3333/')
 

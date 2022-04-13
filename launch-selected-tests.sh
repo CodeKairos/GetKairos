@@ -1,2 +1,3 @@
 #!/bin/bash
-npx cypress run --spec 'cypress/integration/remote.spec.ts'
+pnpm run test
+# npx cypress run --spec 'cypress/integration/remote.spec.ts'

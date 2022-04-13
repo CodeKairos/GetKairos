@@ -10,7 +10,7 @@ import { initAPI } from '~/remote/api'
 import getKairosConfig from '~/getkairos.config.json'
 
 const http = axios.create({
-  baseURL: 'https://getkairos.glitch.me',
+  baseURL: getKairosConfig.jsonServerBaseURL,
   headers: {
     'Content-type': 'application/json',
   },

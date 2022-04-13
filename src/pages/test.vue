@@ -7,6 +7,7 @@ import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarResource.sass'
 import axios from 'axios'
 import { initAPI } from '~/remote/api'
+import getKairosConfig from '~/getkairos.config.json'
 
 const http = axios.create({
   baseURL: 'https://getkairos.glitch.me',
@@ -16,14 +17,14 @@ const http = axios.create({
 })
 const bookingType = ref('')
 
-const api = initAPI('session storage')
+const api = initAPI(getKairosConfig.apiProvider)
 // api.deleteAllBookableTypes()
 console.log(api.getAllBookableTypes())
-api.addBookableType('test')
-api.addBookableType('test 2')
-api.deleteBookableType('test')
+api.addBookableType('test11')
+api.addBookableType('test1')
+api.deleteBookableType('test1')
 console.log(api.getAllBookableTypes())
-api.deleteBookableType('test 2')
+api.deleteBookableType('test11')
 
 // const postData = {
 //   title: 'post title',

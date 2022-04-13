@@ -1,33 +1,30 @@
 <p align='center'>
-  <img src='https://user-images.githubusercontent.com/11247099/154486817-f86b8f20-5463-4122-b6e9-930622e757f2.png' alt='Vitesse - Opinionated Vite Starter Template' width='600'/>
-</p>
-
-<p align='center'>
-Mocking up web app with <b>Vitesse</b><sup><em>(speed)</em></sup><br>
-</p>
-
-<br>
-
-<p align='center'>
 <a href="https://get-kairos.netlify.app/">GetKairos Demo</a>
 </p>
 
-<p align='center'>
+
+<p align='center'> 
+<!-- TODO change for getKairos bages -->
 [![Netlify Status](https://api.netlify.com/api/v1/badges/0127079f-1231-41c3-9926-399fa51a4fe8/deploy-status)](https://app.netlify.com/sites/get-kairos/deploys)
 </p>
 
 <br>
 
-<p align='center'>
-<b>English</b> | <a href="https://github.com/antfu/vitesse/blob/main/README.zh-CN.md">简体中文</a>
-<!-- Contributors: Thanks for geting interested, however we DON'T accept new transitions to the README, thanks. -->
-</p>
+## Config
 
-<br>
+GetKairos config file lives in `./src/getkairos.config.json`. Available options:
+- `"apiProvider": "session storage"` to use client side storage. Mostly for development needs.
+- `"apiProvider": "json-server"` use remote [json-server](https://github.com/typicode/json-server)
+  - `"jsonServerBaseURL": "https://getkairos.glitch.me"` json-server used in production
+  - `"testJsonServerBaseURL": "https://getkairos.glitch.me"` json-server used for testing
+- `"testApiProviders": ["session storage", "json-server"]` select API providers for e2e API testing (using axios requst, no mocking)
+
+
 
 ## Features
 
 - ⚡️ [Vue 3](https://github.com/vuejs/vue-next), [Vite 2](https://github.com/vitejs/vite), [pnpm](https://pnpm.js.org/), [ESBuild](https://github.com/evanw/esbuild) - born with fastness
+- [Based on Vitesse](https://github.com/antfu/vitesse)
 
 - 🗂 [File based routing](./src/pages)
 

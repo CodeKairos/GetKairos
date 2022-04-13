@@ -1,0 +1,6 @@
+{
+    "apiProvider": "json-server",
+    "jsonServerBaseURL": "https://getkairos.glitch.me",
+    "testJsonServerBaseURL": "https://getkairos.glitch.me",
+    "testApiProviders": ["session storage", "json-server"]
+}

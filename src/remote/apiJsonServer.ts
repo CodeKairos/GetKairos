@@ -33,13 +33,13 @@ class ApiJsonServer implements ApiContract {
     const postData = {
       type: name,
     }
-    try {
-      // const response =
-      await this.http.get(bookableTypes)
-      // responseOld = response.data
-    }
-    catch (err) {
-    }
+    // try {
+    //   // const response =
+    //   await this.http.get(bookableTypes)
+    //   // responseOld = response.data
+    // }
+    // catch (err) {
+    // }
     // const res =
     await this.http.post(bookableTypes, postData)
     // const result = {

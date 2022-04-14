@@ -1428,8 +1428,8 @@ packages:
       - supports-color
     dev: true
 
-  /@intlify/bundle-utils/2.2.1_vue-i18n@9.1.9:
-    resolution: {integrity: sha512-8n8zhYEKypS+KP22KUAC6BnQifJDDWUGcn3OVPqsThqMMucU22MShGvOuiKqQ4AeT7XQ5O4pudlJmxv3L91JrQ==}
+  /@intlify/bundle-utils/3.0.0_vue-i18n@9.1.9:
+    resolution: {integrity: sha512-y43Z5Q3ZJvxqtD8xUH6U3yrlZeay7ZTqkzv1GQ4b0mGQtk5uptOT9Ra4qvGuUv8QyPQsortrA/OHWUD5ax5ZNQ==}
     engines: {node: '>= 12'}
     peerDependencies:
       petite-vue-i18n: '*'
@@ -1440,8 +1440,8 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@intlify/message-compiler': 9.2.0-beta.33
-      '@intlify/shared': 9.2.0-beta.33
+      '@intlify/message-compiler': 9.2.0-beta.35
+      '@intlify/shared': 9.2.0-beta.35
       jsonc-eslint-parser: 1.4.1
       source-map: 0.6.1
       vue-i18n: 9.1.9_vue@3.2.31
@@ -1476,11 +1476,11 @@ packages:
       source-map: 0.6.1
     dev: false
 
-  /@intlify/message-compiler/9.2.0-beta.33:
-    resolution: {integrity: sha512-+SICjFlnHSbRLZT+sNdBvOAQfcNX+fESyMmgPxC8HHWu4GLN2CoVQS4ACXb3QBZDKLVJBFhFGMnl+UXyJrno6g==}
+  /@intlify/message-compiler/9.2.0-beta.35:
+    resolution: {integrity: sha512-wYQCgnRtyJ40HK3bJTrszHDaxqDXZH+9Ps7RsXNuNwZ9hIb1cVkLiUNIbuJS/XSJ1kATJXA6K+4if6ZLb0Ozxw==}
     engines: {node: '>= 12'}
     dependencies:
-      '@intlify/shared': 9.2.0-beta.33
+      '@intlify/shared': 9.2.0-beta.35
       source-map: 0.6.1
     dev: true
 
@@ -1503,8 +1503,8 @@ packages:
     engines: {node: '>= 10'}
     dev: false
 
-  /@intlify/shared/9.2.0-beta.33:
-    resolution: {integrity: sha512-HldlkV66vMt1vQsuUz4zjQ202C5KW6aHeIQhx7RxBO11i3E8V84dp5MG9epr9GZXVsrCAR56Ekj0HaTqksIRJA==}
+  /@intlify/shared/9.2.0-beta.35:
+    resolution: {integrity: sha512-DXf7xrwf08GKhr93XPQ8EgaEN0CIELl+mAS6SlRhi/aLtZv5HSGSMkz4M/ICwoWzFLSgOx/ZdBSasex19MMogg==}
     engines: {node: '>= 12'}
     dev: true
 
@@ -1521,8 +1521,8 @@ packages:
       vue-i18n:
         optional: true
     dependencies:
-      '@intlify/bundle-utils': 2.2.1_vue-i18n@9.1.9
-      '@intlify/shared': 9.2.0-beta.33
+      '@intlify/bundle-utils': 3.0.0_vue-i18n@9.1.9
+      '@intlify/shared': 9.2.0-beta.35
       '@rollup/pluginutils': 4.2.0
       debug: 4.3.4
       fast-glob: 3.2.11

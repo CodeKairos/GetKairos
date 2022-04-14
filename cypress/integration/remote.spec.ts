@@ -1,7 +1,7 @@
 import { initAPI } from '~/remote/api'
 const api = initAPI('session storage')
 
-context('Remote API', () => {
+context.skip('Remote API', () => {
   // beforeEach(() => {
   //   cy.visit('/')
   // })

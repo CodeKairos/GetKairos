@@ -29,7 +29,7 @@ function api_test(api: ApiContract, apiProvider: string) {
       data = await api.getAllBookableTypes()
       const final = data.length
       expect(finalClean).to.eq(final)
-    }, 25000)
+    }, 125000)
   })
 }
 

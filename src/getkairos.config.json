@@ -2,5 +2,5 @@
     "apiProvider": "json-server",
     "jsonServerBaseURL": "https://getkairos.herokuapp.com/",
     "testJsonServerBaseURL": "https://getkairos.herokuapp.com/",
-    "testApiProviders": ["session storage", "json-server"]
+    "testApiProviders": ["session storage", "json-server", "firestore"]
 }

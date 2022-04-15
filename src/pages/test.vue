@@ -26,10 +26,12 @@ const initialTypes = await api.getAllBookableTypes()
 console.log('before:', initialTypes)
 await api.addBookableType('test11')
 await api.addBookableType('some type3')
-// await api.deleteBookableType('some type3')
+await api.deleteBookableType('some type3')
 console.log('after:',
   await api.getAllBookableTypes())
-await api.deleteBookableType('test11')
+// await api.deleteBookableType('test11')
+console.log('after2:',
+  await api.getAllBookableTypes())
 
 // const postData = {
 //   title: 'post title',

@@ -38,6 +38,10 @@ for (const apiProvider of getKairosConfig.testApiProviders) {
     const api = initAPI(apiProvider, getKairosConfig.testJsonServerBaseURL)
     api_test(api, apiProvider)
   }
+  else if (apiProvider === 'firestore') {
+    const api = initAPI(apiProvider, getKairosConfig.testJsonServerBaseURL)
+    api_test(api, apiProvider)
+  }
   else {
     const api = initAPI(apiProvider)
     api_test(api, apiProvider)

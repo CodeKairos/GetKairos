@@ -1,6 +1,7 @@
 {
     "apiProvider": "json-server",
     "jsonServerBaseURL": "https://getkairos.herokuapp.com/",
-    "testJsonServerBaseURL": "https://getkairos.herokuapp.com/",
-    "testApiProviders": ["session storage", "json-server", "firestore"]
+    "devJsonServerBaseURL": "http://localhost:3000",
+    "testJsonServerBaseURL": "http://localhost:3000",
+    "testApiProviders": ["session storage", "json-server"]
 }

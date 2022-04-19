@@ -5,61 +5,39 @@ import { QCalendarResource, today } from '@quasar/quasar-ui-qcalendar'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarVariables.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarResource.sass'
-// import axios from 'axios'
+
 import { initAPI } from '~/remote/api'
 import getKairosConfig from '~/getkairos.config.json'
 
-// const http = axios.create({
-//   baseURL: getKairosConfig.jsonServerBaseURL,
-//   headers: {
-//     'Content-type': 'application/json',
-//   },
-// })
-const bookingType = ref('')
+const jsonServerBaseURL = process.env.NODE_ENV === 'development'
+  ? getKairosConfig.devJsonServerBaseURL
+  : getKairosConfig.jsonServerBaseURL
 
 const api = initAPI(
   getKairosConfig.apiProvider,
-  getKairosConfig.jsonServerBaseURL,
+  jsonServerBaseURL,
 )
-// api.deleteAllBookableTypes()
-const initialTypes = await api.getAllBookableTypes()
-console.log('before:', initialTypes)
-await api.addBookableType('test11')
-await api.addBookableType('some type3')
-await api.deleteBookableType('some type3')
-console.log('after:',
-  await api.getAllBookableTypes())
-// await api.deleteBookableType('test11')
-console.log('after2:',
-  await api.getAllBookableTypes())
 
-// const postData = {
-//   title: 'post title',
-//   description: 'some data',
-// }
+const bookingType = ref('')
 
-// const res = await http.post('/posts2', postData)
-// const result = ref({
-//   status: `${res.status}-${res.statusText}`,
-//   headers: res.headers,
-//   data: res.data,
-// })
-// http.post('/posts')
+async function testAPI() {
+  const initialTypes = await api.getAllBookableTypes()
+  console.log('before:', initialTypes)
+  await api.addBookableType('test11')
+  await api.addBookableType('some type3')
+  await api.deleteBookableType('some type3')
+  console.log('after:',
+    await api.getAllBookableTypes())
+  await api.deleteBookableType('test11')
+  console.log('after2:',
+    await api.getAllBookableTypes())
+}
 
-// http.get('/posts')
-//   .then((response) => {
-//     bookingType.value = response.data
-//   })
-//   .catch((e) => {
-//   })
+onMounted(async() => {
+  bookingType.value = JSON.stringify(await api.getAllBookableTypes())
+  testAPI()
+})
 
-// [
-//   {
-//     "id": 0,
-//     "title": "First post!",
-//     "content": "My first content!"
-//   }
-// ]
 const selectedDate = ref(today())
 const resources = ref([
   { id: '1', name: 'John' },

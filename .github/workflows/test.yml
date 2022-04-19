@@ -46,6 +46,9 @@ jobs:
       - name: Type Check
         run: pnpm run typecheck
 
+      - name: Start json-server
+        run: pnpm run jsonServer
+
       - name: Unit Test
         run: pnpm run test:unit
 

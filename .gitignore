@@ -3,6 +3,7 @@ cypress/screenshots
 cypress/plugins
 cypress/support
 cypress/fixtures
+db.json
 .DS_Store
 .vite-ssg-dist
 .vite-ssg-temp

@@ -48,8 +48,8 @@ jobs:
 
       - name: Unit Test
         run: |
-        pnpm run jsonServer &
-        pnpm run test:unit
+          pnpm run jsonServer &
+          pnpm run test:unit
 
       - name: Cypress PNPM Patch
         run: cp pnpm-lock.yaml package-lock.json

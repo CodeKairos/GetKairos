@@ -1,14 +1,14 @@
-interface  BookableItem {
+interface BookableItem {
   id: number
   name: string
   type: string
   tags?: string[]
   photos?: string[]
   icon?: string
-  relatedProps?: {[key: string]: any}[]
+  relatedProps?: Record<string, any>[]
 }
 
-interface  User {
+interface User {
   id: number
   name: string
   image?: string
@@ -16,11 +16,11 @@ interface  User {
   tags?: string[]
 }
 
-interface  relatedUser extends User {
+interface relatedUser extends User {
   role: string
 }
 
-interface  BookingEvent {
+interface BookingEvent {
   id: number
   bookableItemId: number
   start: string
@@ -30,7 +30,7 @@ interface  BookingEvent {
   tags?: string[]
 }
 
-export {BookableItem, User, BookingEvent}
+export { BookableItem, User, BookingEvent }
 
 export interface ApiContract {
   addBookableType(name: string): Promise<void>

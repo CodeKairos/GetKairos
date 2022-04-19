@@ -13,6 +13,7 @@ const jsonServerBaseURL = process.env.NODE_ENV === 'development'
   ? getKairosConfig.devJsonServerBaseURL
   : getKairosConfig.jsonServerBaseURL
 
+console.log('using json-server from ', jsonServerBaseURL)
 const api = initAPI(
   getKairosConfig.apiProvider,
   jsonServerBaseURL,

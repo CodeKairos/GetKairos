@@ -2,11 +2,11 @@
   "bookableTypes": [
     {
       "id": 0,
-      "type": "meeting room"
+      "name": "meeting room"
     },
     {
       "id": 1,
-      "type": "shared seat"
+      "name": "shared seat"
     }
   ],
   "posts": [

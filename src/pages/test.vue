@@ -7,6 +7,7 @@ import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarResource.sass'
 
 import { initAPI } from '~/remote/api'
+import { TagCloudName } from '~/remote/apiContract'
 import getKairosConfig from '~/getkairos.config.json'
 
 const jsonServerBaseURL = process.env.NODE_ENV === 'development'
@@ -22,20 +23,20 @@ const api = initAPI(
 const bookingType = ref('')
 
 async function testAPI() {
-  const initialTypes = await api.getAllBookableTypes()
+  const initialTypes = await api.getAllTags(TagCloudName.bookableTypes)
   console.log('before:', initialTypes)
-  await api.addBookableType('test11')
-  await api.addBookableType('some type3')
-  await api.deleteBookableType('some type3')
+  await api.addTag(TagCloudName.bookableTypes, 'test11')
+  await api.addTag(TagCloudName.bookableTypes, 'some type3')
+  await api.deleteTag(TagCloudName.bookableTypes, 'some type3')
   console.log('after:',
-    await api.getAllBookableTypes())
-  await api.deleteBookableType('test11')
+    await api.getAllTags(TagCloudName.bookableTypes))
+  await api.deleteTag(TagCloudName.bookableTypes, 'test11')
   console.log('after2:',
-    await api.getAllBookableTypes())
+    await api.getAllTags(TagCloudName.bookableTypes))
 }
 
 onMounted(async() => {
-  bookingType.value = JSON.stringify(await api.getAllBookableTypes())
+  bookingType.value = JSON.stringify(await api.getAllTags(TagCloudName.bookableTypes))
   testAPI()
 })
 

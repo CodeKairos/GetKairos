@@ -16,7 +16,7 @@ interface User {
   tags?: string[]
 }
 
-interface relatedUser extends User {
+interface RelatedUser extends User {
   role: string
 }
 
@@ -26,14 +26,18 @@ interface BookingEvent {
   start: string
   end: string
   creator: User
-  relatedUsers: relatedUser[]
+  relatedUsers?: RelatedUser[]
   tags?: string[]
 }
 
-export { BookableItem, User, BookingEvent }
-
-export interface ApiContract {
+interface ApiContract {
   addBookableType(name: string): Promise<void>
   getAllBookableTypes(): Promise<string[]>
   deleteBookableType(name: string): Promise<void>
+}
+
+export {
+  BookableItem, BookingEvent,
+  User, RelatedUser,
+  ApiContract,
 }

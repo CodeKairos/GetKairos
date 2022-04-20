@@ -9,38 +9,38 @@ const tagCloudName = TagCloudName.bookableTypes
 function api_test(api: ApiContract, apiProvider: string) {
   describe(`Remote API: ${apiProvider}`, () => {
     it('can add and remove a tag', async() => {
-      const initialData = await api.getAllTags(tagCloudName)
+      const initialData = await api.tags.getAll(tagCloudName)
       const initialLength = initialData.length
       const additionalTag = 'test tag'
 
-      await api.addTag(tagCloudName, additionalTag)
-      let data = await api.getAllTags(tagCloudName)
+      await api.tags.add(tagCloudName, additionalTag)
+      let data = await api.tags.getAll(tagCloudName)
       expect(data.includes(additionalTag)).to.eq(true)
 
       const incremented = data.length
       expect(initialLength).to.eq(incremented - 1)
 
-      await api.deleteTag(tagCloudName, additionalTag)
-      data = await api.getAllTags(tagCloudName)
+      await api.tags.delete(tagCloudName, additionalTag)
+      data = await api.tags.getAll(tagCloudName)
       expect(data.includes(additionalTag)).to.eq(false)
 
       const cleanedLength = data.length
       expect(initialLength).to.greaterThanOrEqual(cleanedLength)
 
       // add same tag twice!
-      await api.addTag(tagCloudName, additionalTag)
-      await api.addTag(tagCloudName, additionalTag)
-      await api.deleteTag(tagCloudName, additionalTag)
-      data = await api.getAllTags(tagCloudName)
+      await api.tags.add(tagCloudName, additionalTag)
+      await api.tags.add(tagCloudName, additionalTag)
+      await api.tags.delete(tagCloudName, additionalTag)
+      data = await api.tags.getAll(tagCloudName)
       expect(cleanedLength).to.eq(data.length)
     }, 125000)
     it('can use all tag clouds', async() => {
       for (const tagCloudName in TagCloudName) {
         const additionalTag = 'test tag'
-        await api.addTag(tagCloudName, additionalTag)
-        const data = await api.getAllTags(tagCloudName)
+        await api.tags.add(tagCloudName, additionalTag)
+        const data = await api.tags.getAll(tagCloudName)
         expect(data.includes(additionalTag)).to.eq(true)
-        await api.deleteTag(tagCloudName, additionalTag)
+        await api.tags.delete(tagCloudName, additionalTag)
       }
     }, 10000)
   })

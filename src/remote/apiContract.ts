@@ -41,10 +41,14 @@ interface BookingEvent {
   tags?: string[]
 }
 
+interface TagsApi {
+  add(tagCloudName: string, tagName: string): Promise<void>
+  getAll(tagCloudName: string): Promise<string[]>
+  delete(tagCloudName: string, tagName: string): Promise<void>
+}
+
 interface ApiContract {
-  addTag(tagCloudName: string, tagName: string): Promise<void>
-  getAllTags(tagCloudName: string): Promise<string[]>
-  deleteTag(tagCloudName: string, tagName: string): Promise<void>
+  tags: TagsApi
 }
 
 export {
@@ -52,4 +56,5 @@ export {
   BookableItem, BookingEvent,
   User, RelatedUser,
   ApiContract,
+  TagsApi,
 }

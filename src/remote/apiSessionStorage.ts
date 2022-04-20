@@ -1,24 +1,24 @@
 import type { ApiContract } from '~/remote/apiContract'
-const bookableTypes = 'kairosBookableTypes'
-async function setBookableTypes(data: string[]): Promise<void> {
-  window.sessionStorage.setItem(bookableTypes, JSON.stringify(data))
+const prefix = 'kairos-'
+async function setTags(tagCloudName: string, data: string[]): Promise<void> {
+  window.sessionStorage.setItem(prefix + tagCloudName, JSON.stringify(data))
 }
 
 class ApiSessionStorage implements ApiContract {
-  async getAllBookableTypes() {
-    return JSON.parse(window.sessionStorage.getItem(bookableTypes) || '[]')
+  async getAllTags(tagCloudName: string) {
+    return JSON.parse(window.sessionStorage.getItem(prefix + tagCloudName) || '[]')
   }
 
-  async addBookableType(name: string): Promise<void> {
-    const data = await this.getAllBookableTypes()
-    data.push(name)
-    setBookableTypes(data)
+  async addTag(tagCloudName: string, tagName: string): Promise<void> {
+    const data = await this.getAllTags(tagCloudName)
+    data.push(tagName)
+    setTags(tagCloudName, data)
   }
 
-  async deleteBookableType(name: string): Promise<void> {
-    const data = await this.getAllBookableTypes()
-    const filteredData = data.filter((e: string) => e !== name)
-    setBookableTypes(filteredData)
+  async deleteTag(tagCloudName: string, tagName: string): Promise<void> {
+    const data = await this.getAllTags(tagCloudName)
+    const filteredData = data.filter((e: string) => e !== tagName)
+    setTags(tagCloudName, filteredData)
   }
 }
 export { ApiSessionStorage }

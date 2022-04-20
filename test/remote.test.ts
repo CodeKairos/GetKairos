@@ -2,33 +2,37 @@ import { describe, expect, it } from 'vitest'
 import getKairosConfig from '~/getkairos.config.json'
 import { initAPI } from '~/remote/api'
 import type { ApiContract } from '~/remote/apiContract'
+import { TagCloudName } from '~/remote/apiContract'
+
+const tagCloudName = TagCloudName.bookableTypes
 
 function api_test(api: ApiContract, apiProvider: string) {
   describe(`Remote API: ${apiProvider}`, () => {
-    it('can add and remove a bookable type', async() => {
-      const initialData = await api.getAllBookableTypes()
-      const initial = initialData.length
-      const additionaType = 'some type3'
+    it('can add and remove a tag', async() => {
+      const initialData = await api.getAllTags(tagCloudName)
+      const initialLength = initialData.length
+      const additionalTag = 'test tag'
 
-      await api.addBookableType(additionaType)
-      let data = await api.getAllBookableTypes()
-      expect(data.includes(additionaType)).to.eq(true)
+      await api.addTag(tagCloudName, additionalTag)
+      let data = await api.getAllTags(tagCloudName)
+      expect(data.includes(additionalTag)).to.eq(true)
 
       const incremented = data.length
-      expect(initial).to.eq(incremented - 1)
+      expect(initialLength).to.eq(incremented - 1)
 
-      await api.deleteBookableType(additionaType)
-      data = await api.getAllBookableTypes()
-      expect(data.includes(additionaType)).to.eq(false)
+      await api.deleteTag(tagCloudName, additionalTag)
+      data = await api.getAllTags(tagCloudName)
+      expect(data.includes(additionalTag)).to.eq(false)
 
-      const finalClean = data.length
-      expect(initial).to.greaterThanOrEqual(finalClean)
+      const cleanedLength = data.length
+      expect(initialLength).to.greaterThanOrEqual(cleanedLength)
 
-      await api.addBookableType(additionaType)
-      await api.deleteBookableType(additionaType)
-      data = await api.getAllBookableTypes()
-      const final = data.length
-      expect(finalClean).to.eq(final)
+      // add same tag twice!
+      await api.addTag(tagCloudName, additionalTag)
+      await api.addTag(tagCloudName, additionalTag)
+      await api.deleteTag(tagCloudName, additionalTag)
+      data = await api.getAllTags(tagCloudName)
+      expect(cleanedLength).to.eq(data.length)
     }, 125000)
   })
 }

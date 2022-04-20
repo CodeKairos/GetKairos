@@ -1,11 +1,12 @@
-interface BookableItem {
-  id: number
-  name: string
-  type: string
-  tags?: string[]
-  photos?: string[]
-  icon?: string
-  relatedProps?: Record<string, any>[]
+enum TagCloudName {
+  // e.g. meeting room, lab equipment, shared place, software license, etc.
+  bookableTypes = 'bookableTypes',
+  // e.g. managment, group meeting, education, some project, etc.
+  eventTypes = 'eventTypes',
+  // e.g. admin, by team, by department, etc.
+  userGroups = 'userGroups',
+  // e.g. blackboard, beamer, web conference
+  meetingRoomEquipment = 'meetingRoomEquipment',
 }
 
 interface User {
@@ -20,6 +21,16 @@ interface RelatedUser extends User {
   role: string
 }
 
+interface BookableItem {
+  id: number
+  name: string
+  type: string
+  tags?: string[]
+  photos?: string[]
+  icon?: string
+  relatedProps?: Record<string, any>[]
+}
+
 interface BookingEvent {
   id: number
   bookableItemId: number
@@ -31,12 +42,13 @@ interface BookingEvent {
 }
 
 interface ApiContract {
-  addBookableType(name: string): Promise<void>
-  getAllBookableTypes(): Promise<string[]>
-  deleteBookableType(name: string): Promise<void>
+  addTag(tagCloudName: string, tagName: string): Promise<void>
+  getAllTags(tagCloudName: string): Promise<string[]>
+  deleteTag(tagCloudName: string, tagName: string): Promise<void>
 }
 
 export {
+  TagCloudName,
   BookableItem, BookingEvent,
   User, RelatedUser,
   ApiContract,

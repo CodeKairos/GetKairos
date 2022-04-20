@@ -1,39 +1,5 @@
-import type { AxiosInstance } from 'axios'
 import axios from 'axios'
 import type { ApiContract } from '~/remote/apiContract'
-const bookableTypes = '/bookableTypes'
-
-async function getAllTags(http: AxiosInstance, endpoint: string) {
-  let responseData: { id: number; name: string }[] = []
-  try {
-    const response = await http.get(endpoint)
-    responseData = response.data
-  }
-  catch (err) {
-  }
-  return responseData.map((e: { id: number; name: string }) => e.name)
-}
-
-async function addTag(http: AxiosInstance, endpoint: string, tagName: string) {
-  await http.post(endpoint, { name: tagName })
-}
-
-async function deleteTag(http: AxiosInstance, endpoint: string, tagName: string) {
-  let responseData: { id: number; name: string }[] = []
-
-  try {
-    const response = await http.get(endpoint)
-    responseData = response.data
-  }
-  catch (err) {
-  }
-  for (const record of responseData) {
-    if (record.name === tagName) {
-      // console.log(record, 'to delete:', name, ' request:', `${bookableTypes}/${record.id}`)
-      await http.delete(`${endpoint}\\${record.id}`)
-    }
-  }
-}
 
 class ApiJsonServer implements ApiContract {
   private baseURL = ''
@@ -48,16 +14,36 @@ class ApiJsonServer implements ApiContract {
     })
   }
 
-  async getAllBookableTypes() {
-    return await getAllTags(this.http, bookableTypes)
+  async getAllTags(endpoint: string) {
+    let responseData: { id: number; name: string }[] = []
+    try {
+      const response = await this.http.get(endpoint)
+      responseData = response.data
+    }
+    catch (err) {
+    }
+    return responseData.map((e: { id: number; name: string }) => e.name)
   }
 
-  async addBookableType(typeName: string): Promise<void> {
-    await addTag(this.http, bookableTypes, typeName)
+  async addTag(endpoint: string, tagName: string) {
+    await this.http.post(endpoint, { name: tagName })
   }
 
-  async deleteBookableType(typeName: string): Promise<void> {
-    await deleteTag(this.http, bookableTypes, typeName)
+  async deleteTag(endpoint: string, tagName: string) {
+    let responseData: { id: number; name: string }[] = []
+
+    try {
+      const response = await this.http.get(endpoint)
+      responseData = response.data
+    }
+    catch (err) {
+    }
+    for (const record of responseData) {
+      if (record.name === tagName) {
+        // console.log(record, 'to delete:', name, ' request:', `${bookableTypes}/${record.id}`)
+        await this.http.delete(`${endpoint}\\${record.id}`)
+      }
+    }
   }
 }
 export { ApiJsonServer }

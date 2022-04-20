@@ -34,6 +34,15 @@ function api_test(api: ApiContract, apiProvider: string) {
       data = await api.getAllTags(tagCloudName)
       expect(cleanedLength).to.eq(data.length)
     }, 125000)
+    it('can use all tag clouds', async() => {
+      for (const tagCloudName in TagCloudName) {
+        const additionalTag = 'test tag'
+        await api.addTag(tagCloudName, additionalTag)
+        const data = await api.getAllTags(tagCloudName)
+        expect(data.includes(additionalTag)).to.eq(true)
+        await api.deleteTag(tagCloudName, additionalTag)
+      }
+    }, 10000)
   })
 }
 

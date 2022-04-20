@@ -9,6 +9,14 @@
       "name": "shared seat"
     }
   ],
+  "eventTypes": [
+    {
+      "id": 0,
+      "name": "education"
+    }
+  ],
+  "userGroups": [],
+  "meetingRoomEquipment":[],
   "posts": [
     {
       "id": 0,

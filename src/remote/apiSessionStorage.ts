@@ -5,18 +5,18 @@ async function setTags(tagCloudName: string, data: string[]): Promise<void> {
 }
 
 class TagsSessionStorage implements TagsApi {
-  async getAll(tagCloudName: string) {
+  async readAll(tagCloudName: string) {
     return JSON.parse(window.sessionStorage.getItem(prefix + tagCloudName) || '[]')
   }
 
-  async add(tagCloudName: string, tagName: string): Promise<void> {
-    const data = await this.getAll(tagCloudName)
+  async create(tagCloudName: string, tagName: string): Promise<void> {
+    const data = await this.readAll(tagCloudName)
     data.push(tagName)
     setTags(tagCloudName, data)
   }
 
   async delete(tagCloudName: string, tagName: string): Promise<void> {
-    const data = await this.getAll(tagCloudName)
+    const data = await this.readAll(tagCloudName)
     const filteredData = data.filter((e: string) => e !== tagName)
     setTags(tagCloudName, filteredData)
   }

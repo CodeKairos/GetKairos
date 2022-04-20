@@ -23,20 +23,20 @@ const api = initAPI(
 const bookingType = ref('')
 
 async function testAPI() {
-  const initialTypes = await api.tags.getAll(TagCloudName.bookableTypes)
+  const initialTypes = await api.tags.readAll(TagCloudName.bookableTypes)
   console.log('before:', initialTypes)
-  await api.tags.add(TagCloudName.bookableTypes, 'test11')
-  await api.tags.add(TagCloudName.bookableTypes, 'some type3')
+  await api.tags.create(TagCloudName.bookableTypes, 'test11')
+  await api.tags.create(TagCloudName.bookableTypes, 'some type3')
   await api.tags.delete(TagCloudName.bookableTypes, 'some type3')
   console.log('after:',
-    await api.tags.getAll(TagCloudName.bookableTypes))
+    await api.tags.readAll(TagCloudName.bookableTypes))
   await api.tags.delete(TagCloudName.bookableTypes, 'test11')
   console.log('after2:',
-    await api.tags.getAll(TagCloudName.bookableTypes))
+    await api.tags.readAll(TagCloudName.bookableTypes))
 }
 
 onMounted(async() => {
-  bookingType.value = JSON.stringify(await api.tags.getAll(TagCloudName.bookableTypes))
+  bookingType.value = JSON.stringify(await api.tags.readAll(TagCloudName.bookableTypes))
   testAPI()
 })
 

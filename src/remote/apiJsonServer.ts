@@ -8,7 +8,7 @@ class TagsJson implements TagsApi {
     this.http = http
   }
 
-  async getAll(endpoint: string) {
+  async readAll(endpoint: string) {
     let responseData: { id: number; name: string }[] = []
     try {
       const response = await this.http.get(endpoint)
@@ -19,7 +19,7 @@ class TagsJson implements TagsApi {
     return responseData.map((e: { id: number; name: string }) => e.name)
   }
 
-  async add(endpoint: string, tagName: string) {
+  async create(endpoint: string, tagName: string) {
     await this.http.post(endpoint, { name: tagName })
   }
 

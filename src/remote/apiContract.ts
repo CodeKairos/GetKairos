@@ -42,8 +42,8 @@ interface BookingEvent {
 }
 
 interface TagsApi {
-  add(tagCloudName: string, tagName: string): Promise<void>
-  getAll(tagCloudName: string): Promise<string[]>
+  create(tagCloudName: string, tagName: string): Promise<void>
+  readAll(tagCloudName: string): Promise<string[]>
   delete(tagCloudName: string, tagName: string): Promise<void>
 }
 

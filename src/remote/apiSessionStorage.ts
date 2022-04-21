@@ -1,7 +1,4 @@
-import type {
-  ApiContract,
-  //  User
-} from '~/remote/apiContract'
+import type { ApiContract, ApiTags } from '~/remote/apiContract'
 const prefix = 'kairos-'
 // const users = 'users'
 async function setTags(tagCloudName: string, data: string[]): Promise<void> {
@@ -12,20 +9,19 @@ async function setTags(tagCloudName: string, data: string[]): Promise<void> {
 //   return (performance.now().toString(36) + Math.random().toString(36)).replace(/\./g, '')
 // }
 
-class ApiSessionStorage implements ApiContract {
-  // Tags management
-  async getAllTags(tagCloudName: string) {
+class ApiSessionStorageTags implements ApiTags {
+  async readAll(tagCloudName: string) {
     return JSON.parse(window.sessionStorage.getItem(prefix + tagCloudName) || '[]')
   }
 
-  async addTag(tagCloudName: string, tagName: string): Promise<void> {
-    const data = await this.getAllTags(tagCloudName)
+  async create(tagCloudName: string, tagName: string): Promise<void> {
+    const data = await this.readAll(tagCloudName)
     data.push(tagName)
     setTags(tagCloudName, data)
   }
 
-  async deleteTag(tagCloudName: string, tagName: string): Promise<void> {
-    const data = await this.getAllTags(tagCloudName)
+  async delete(tagCloudName: string, tagName: string): Promise<void> {
+    const data = await this.readAll(tagCloudName)
     const filteredData = data.filter((e: string) => e !== tagName)
     setTags(tagCloudName, filteredData)
   }
@@ -38,5 +34,12 @@ class ApiSessionStorage implements ApiContract {
   //   window.sessionStorage.setItem(prefix + users, JSON.stringify(newUser))
   //   return userId
   // }
+}
+
+class ApiSessionStorage implements ApiContract {
+  tags: ApiTags
+  constructor() {
+    this.tags = new ApiSessionStorageTags()
+  }
 }
 export { ApiSessionStorage }

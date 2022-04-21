@@ -1,4 +1,4 @@
-enum TagCloudName {
+export enum TagCloudName {
   // e.g. meeting room, lab equipment, shared place, software license, etc.
   bookableTypes = 'bookableTypes',
   // e.g. managment, group meeting, education, some project, etc.
@@ -9,11 +9,8 @@ enum TagCloudName {
   meetingRoomEquipment = 'meetingRoomEquipment',
 }
 
-interface ApiContractTags {
+export interface ApiContractTags {
   create(tagCloudName: string, tagName: string): Promise<void>
   readAll(tagCloudName: string): Promise<string[]>
   delete(tagCloudName: string, tagName: string): Promise<void>
 }
-
-export type { ApiContractTags }
-export { TagCloudName }

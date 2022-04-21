@@ -6,8 +6,8 @@ import { TagCloudName } from '~/remote/ApiContractTags'
 
 const tagCloudName = TagCloudName.bookableTypes
 
-function api_test(api: ApiContract, apiProvider: string) {
-  describe(`Remote API: ${apiProvider}`, () => {
+function api_test_tags(api: ApiContract, apiProvider: string) {
+  describe(`Remote API test tags: ${apiProvider}`, () => {
     it('can add and remove a tag', async() => {
       const additionalTag = 'test tag'
 
@@ -16,6 +16,7 @@ function api_test(api: ApiContract, apiProvider: string) {
 
       const initialData = await api.tags.readAll(tagCloudName)
       const initialLength = initialData.length
+      expect(initialData.includes(additionalTag)).to.eq(false)
 
       await api.tags.create(tagCloudName, additionalTag)
       let data = await api.tags.readAll(tagCloudName)
@@ -71,14 +72,14 @@ function api_test(api: ApiContract, apiProvider: string) {
 for (const apiProvider of getKairosConfig.testApiProviders) {
   if (apiProvider === 'json-server') {
     const api = initAPI(apiProvider, getKairosConfig.testJsonServerBaseURL)
-    api_test(api, apiProvider)
+    api_test_tags(api, apiProvider)
   }
   else if (apiProvider === 'firestore') {
     const api = initAPI(apiProvider, getKairosConfig.testJsonServerBaseURL)
-    api_test(api, apiProvider)
+    api_test_tags(api, apiProvider)
   }
   else {
     const api = initAPI(apiProvider)
-    api_test(api, apiProvider)
+    api_test_tags(api, apiProvider)
   }
 }

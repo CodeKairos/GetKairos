@@ -1,7 +1,10 @@
-import { initAPI } from '~/remote/api'
-const api = initAPI('session storage')
+import { TagCloudName } from '~/remote/ApiContract'
+import { initAPI } from '~/remote/KairosApi'
 
-context.skip('Remote API', () => {
+const api = initAPI('session storage')
+const tagCloudName = TagCloudName.bookableTypes
+
+context('Remote API', () => {
   // beforeEach(() => {
   //   cy.visit('/')
   // })
@@ -14,21 +17,21 @@ context.skip('Remote API', () => {
   // })
 
   it('can add and remove a bookable type', async() => {
-    const initial = (await api.getAllBookableTypes()).length
-    const additionaType = 'some type'
+    const initial = (await api.tags.readAll(tagCloudName)).length
+    const additionalType = 'some type'
 
-    api.addBookableType(additionaType)
-    let data = api.getAllBookableTypes()
-    expect((await data).includes(additionaType)).to.eq(true)
+    await api.tags.create(tagCloudName, additionalType)
+    let data = await api.tags.readAll(tagCloudName)
+    expect(data.includes(additionalType)).to.eq(true)
 
     const incremented = (await data).length
     expect(initial).to.eq(incremented - 1)
 
-    api.deleteBookableType(additionaType)
-    data = api.getAllBookableTypes()
-    expect((await data).includes(additionaType)).to.eq(false)
+    await api.tags.delete(tagCloudName, additionalType)
+    data = await api.tags.readAll(tagCloudName)
+    expect(data.includes(additionalType)).to.eq(false)
 
-    const final = (await data).length
+    const final = data.length
     expect(initial).to.eq(final)
   })
 })

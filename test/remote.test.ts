@@ -9,9 +9,13 @@ const tagCloudName = TagCloudName.bookableTypes
 function api_test(api: ApiContract, apiProvider: string) {
   describe(`Remote API: ${apiProvider}`, () => {
     it('can add and remove a tag', async() => {
+      const additionalTag = 'test tag'
+
+      // clean up
+      await api.tags.delete(tagCloudName, additionalTag)
+
       const initialData = await api.tags.readAll(tagCloudName)
       const initialLength = initialData.length
-      const additionalTag = 'test tag'
 
       await api.tags.create(tagCloudName, additionalTag)
       let data = await api.tags.readAll(tagCloudName)
@@ -25,15 +29,24 @@ function api_test(api: ApiContract, apiProvider: string) {
       expect(data.includes(additionalTag)).to.eq(false)
 
       const cleanedLength = data.length
-      expect(initialLength).to.greaterThanOrEqual(cleanedLength)
+      expect(initialLength).to.eq(cleanedLength)
+    }, 125000)
+
+    it('does not create duplicated tags', async() => {
+      const additionalTag = 'test tag'
+      // clean up
+      await api.tags.delete(tagCloudName, additionalTag)
+      const cleanedLength = (await api.tags.readAll(tagCloudName)).length
 
       // add same tag twice!
       await api.tags.create(tagCloudName, additionalTag)
       await api.tags.create(tagCloudName, additionalTag)
+      let data = await api.tags.readAll(tagCloudName)
+      expect(cleanedLength).to.eq(data.length - 1)
       await api.tags.delete(tagCloudName, additionalTag)
       data = await api.tags.readAll(tagCloudName)
       expect(cleanedLength).to.eq(data.length)
-    }, 125000)
+    })
 
     it('can use all tag clouds', async() => {
       for (const tagCloudName in TagCloudName) {

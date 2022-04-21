@@ -1,4 +1,4 @@
-import type { ApiContract, ApiTags } from '~/remote/apiContract'
+import type { ApiContract, ApiContractTags } from '~/remote/apiContract'
 const prefix = 'kairos-'
 // const users = 'users'
 async function setTags(tagCloudName: string, data: string[]): Promise<void> {
@@ -9,14 +9,14 @@ async function setTags(tagCloudName: string, data: string[]): Promise<void> {
 //   return (performance.now().toString(36) + Math.random().toString(36)).replace(/\./g, '')
 // }
 
-class ApiSessionStorageTags implements ApiTags {
+class ApiSessionStorageTags implements ApiContractTags {
   async readAll(tagCloudName: string) {
     return JSON.parse(window.sessionStorage.getItem(prefix + tagCloudName) || '[]')
   }
 
   async create(tagCloudName: string, tagName: string): Promise<void> {
     const data = await this.readAll(tagCloudName)
-    data.push(tagName)
+    if (!data.includes(tagName)) data.push(tagName)
     setTags(tagCloudName, data)
   }
 
@@ -37,7 +37,7 @@ class ApiSessionStorageTags implements ApiTags {
 }
 
 class ApiSessionStorage implements ApiContract {
-  tags: ApiTags
+  tags: ApiContractTags
   constructor() {
     this.tags = new ApiSessionStorageTags()
   }

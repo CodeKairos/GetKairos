@@ -38,14 +38,14 @@ enum TagCloudName {
   meetingRoomEquipment = 'meetingRoomEquipment',
 }
 
-interface ApiTags {
+interface ApiContractTags {
   create(tagCloudName: string, tagName: string): Promise<void>
   readAll(tagCloudName: string): Promise<string[]>
   delete(tagCloudName: string, tagName: string): Promise<void>
 }
 
 interface ApiContract {
-  tags: ApiTags
+  tags: ApiContractTags
 
   // // Users
   // createUser(name?: string): Promise<string>
@@ -58,5 +58,5 @@ export {
   BookableItem, BookingEvent,
   User,
   ApiContract,
-  ApiTags,
+  ApiContractTags,
 }

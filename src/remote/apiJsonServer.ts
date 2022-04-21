@@ -1,8 +1,8 @@
 import type { AxiosInstance } from 'axios'
 import axios from 'axios'
-import type { ApiContract, ApiTags } from '~/remote/apiContract'
+import type { ApiContract, ApiContractTags as ApiContranctTags } from '~/remote/apiContract'
 
-class TagsJson implements ApiTags {
+class ApiJsonServerTags implements ApiContranctTags {
   private http
   constructor(http: AxiosInstance) {
     this.http = http
@@ -20,7 +20,9 @@ class TagsJson implements ApiTags {
   }
 
   async create(endpoint: string, tagName: string) {
-    await this.http.post(endpoint, { name: tagName })
+    const data = await this.readAll(endpoint)
+    if (!data.includes(tagName))
+      await this.http.post(endpoint, { name: tagName })
   }
 
   async delete(endpoint: string, tagName: string) {
@@ -44,7 +46,7 @@ class TagsJson implements ApiTags {
 class ApiJsonServer implements ApiContract {
   private baseURL = ''
   private http
-  tags: TagsJson
+  tags: ApiJsonServerTags
 
   constructor(baseURL: string) {
     this.baseURL = baseURL
@@ -54,7 +56,7 @@ class ApiJsonServer implements ApiContract {
         'Content-type': 'application/json',
       },
     })
-    this.tags = new TagsJson(this.http)
+    this.tags = new ApiJsonServerTags(this.http)
   }
 }
 export { ApiJsonServer }

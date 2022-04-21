@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import getKairosConfig from '~/getkairos.config.json'
-import { initAPI } from '~/remote/api'
-import type { ApiContract } from '~/remote/apiContract'
-import { TagCloudName } from '~/remote/apiContract'
+import { initAPI } from '~/remote/KairosApi'
+import type { ApiContract } from '~/remote/ApiContract'
+import { TagCloudName } from '~/remote/ApiContractTags'
 
 const tagCloudName = TagCloudName.bookableTypes
 

@@ -6,8 +6,8 @@ import '@quasar/quasar-ui-qcalendar/src/QCalendarVariables.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarResource.sass'
 
-import { initAPI } from '~/remote/api'
-import { TagCloudName } from '~/remote/apiContract'
+import { initAPI } from '~/remote/KairosApi'
+import { TagCloudName } from '~/remote/ApiContract'
 import getKairosConfig from '~/getkairos.config.json'
 
 const jsonServerBaseURL = process.env.NODE_ENV === 'development'

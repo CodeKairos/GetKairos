@@ -34,6 +34,7 @@ function api_test(api: ApiContract, apiProvider: string) {
       data = await api.getAllTags(tagCloudName)
       expect(cleanedLength).to.eq(data.length)
     }, 125000)
+
     it('can use all tag clouds', async() => {
       for (const tagCloudName in TagCloudName) {
         const additionalTag = 'test tag'
@@ -43,6 +44,14 @@ function api_test(api: ApiContract, apiProvider: string) {
         await api.deleteTag(tagCloudName, additionalTag)
       }
     }, 10000)
+
+    // it(' CRUD user', async() => {
+    //   const newUserName = 'test user'
+    //   const userId = await api.createUser(newUserName)
+    //   const createdUser = await api.getUserById(userId)
+    //   expect(createdUser.name).to.eq(newUserName)
+    //   await api.deleteUser(userId)
+    // })
   })
 }
 

@@ -30,5 +30,8 @@ describe('Remote API utils for user management', () => {
     expect(isValidUsername('Get Jr. Kairos')).to.eq(true)
     expect(isValidUsername('Kairos, Get')).to.eq(true)
     expect(isValidUsername('Kairos, B.C.')).to.eq(true)
+    expect(isValidUsername('Ángel Martín González José Rodríguez Julià Butragueño')).to.eq(true)
+    expect(isValidUsername('Entraîneurs Jean-François')).to.eq(true)
+    expect(isValidUsername('Anfänge Schön Jürgen zunächst zur Fußball')).to.eq(true)
   })
 })

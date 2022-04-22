@@ -4,6 +4,9 @@ import { isValidUsername } from '~/remote/utilsUsers'
 describe('Remote API utils for user management', () => {
   it('validates username', async() => {
     expect(isValidUsername('x')).to.eq(false)
+    expect(isValidUsername('x+1')).to.eq(false)
+    expect(isValidUsername('x&?!')).to.eq(false)
+    expect(isValidUsername('emoji💁👌🎍😍 god')).to.eq(false)
     expect(isValidUsername('Get  Kairos')).to.eq(false)
     expect(isValidUsername('get_.kairos')).to.eq(false)
     expect(isValidUsername('.kairos')).to.eq(false)
@@ -33,5 +36,7 @@ describe('Remote API utils for user management', () => {
     expect(isValidUsername('Ángel Martín González José Rodríguez Julià Butragueño')).to.eq(true)
     expect(isValidUsername('Entraîneurs Jean-François')).to.eq(true)
     expect(isValidUsername('Anfänge Schön Jürgen zunächst zur Fußball')).to.eq(true)
+    expect(isValidUsername('Иван Петров')).to.eq(true)
+    expect(isValidUsername('井原正巳 川口能活 高木琢也 木村和司')).to.eq(true)
   })
 })

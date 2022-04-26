@@ -1,6 +1,11 @@
 import type { AxiosInstance } from 'axios'
 import type { ApiContractTags } from '~/remote/ApiContractTags'
 
+interface JsonTags {
+  id: number
+  name: string
+}
+
 export class ApiJsonServerTags implements ApiContractTags {
   private http
   constructor(http: AxiosInstance) {
@@ -8,14 +13,14 @@ export class ApiJsonServerTags implements ApiContractTags {
   }
 
   async readAll(endpoint: string) {
-    let responseData: { id: number; name: string }[] = []
+    let responseData: JsonTags[] = []
     try {
       const response = await this.http.get(endpoint)
       responseData = response.data
     }
     catch (err) {
     }
-    return responseData.map((e: { id: number; name: string }) => e.name)
+    return responseData.map((e: JsonTags) => e.name)
   }
 
   async create(endpoint: string, tagName: string) {
@@ -25,7 +30,7 @@ export class ApiJsonServerTags implements ApiContractTags {
   }
 
   async delete(endpoint: string, tagName: string) {
-    let responseData: { id: number; name: string }[] = []
+    let responseData: JsonTags[] = []
 
     try {
       const response = await this.http.get(endpoint)

@@ -1,9 +1,11 @@
+import type { ApiContractBookableItems, BookableItem, BookableItemBase } from './ApiContractBookableItems'
+import type { ApiContractBookingEvents, BookingEvent, BookingEventBase } from './ApiContractBookingEvents'
 import type { ApiContract } from '~/remote/ApiContract'
 import type { ApiContractTags } from '~/remote/ApiContractTags'
 const prefix = 'kairos-'
 // const users = 'users'
-async function setTags(tagCloudName: string, data: string[]): Promise<void> {
-  window.sessionStorage.setItem(prefix + tagCloudName, JSON.stringify(data))
+async function setData(path: string, data: any): Promise<void> {
+  window.sessionStorage.setItem(prefix + path, JSON.stringify(data))
 }
 
 // function uid() {
@@ -18,13 +20,13 @@ class ApiSessionStorageTags implements ApiContractTags {
   async create(tagCloudName: string, tagName: string): Promise<void> {
     const data = await this.readAll(tagCloudName)
     if (!data.includes(tagName)) data.push(tagName)
-    setTags(tagCloudName, data)
+    setData(tagCloudName, data)
   }
 
   async delete(tagCloudName: string, tagName: string): Promise<void> {
     const data = await this.readAll(tagCloudName)
     const filteredData = data.filter((e: string) => e !== tagName)
-    setTags(tagCloudName, filteredData)
+    setData(tagCloudName, filteredData)
   }
 
   // // User management
@@ -37,10 +39,58 @@ class ApiSessionStorageTags implements ApiContractTags {
   // }
 }
 
+class ApiSessionStorageBookableItems implements ApiContractBookableItems {
+  private endpoint = 'bookableItems'
+  async readAll() {
+    const response: BookableItem[] = JSON.parse(window.sessionStorage.getItem(prefix + this.endpoint) || '[]')
+    return response
+  }
+
+  async create(bookableItem: BookableItemBase) {
+    const data = await this.readAll()
+    const newItem: BookableItem = { ...bookableItem, id: (Math.random() + 1).toString(36).substring(7) }
+    data.push(newItem)
+    setData(this.endpoint, data)
+    return newItem
+  }
+
+  async delete(id: string) {
+    const data = await this.readAll()
+    const filteredData = data.filter(e => e.id !== id)
+    setData(this.endpoint, filteredData)
+  }
+}
+
+class ApiSessionStorageBookingEvents implements ApiContractBookingEvents {
+  private endpoint = 'bookingEvents'
+  async readAll() {
+    const response: BookingEvent[] = JSON.parse(window.sessionStorage.getItem(prefix + this.endpoint) || '[]')
+    return response
+  }
+
+  async create(bookingEvent: BookingEventBase) {
+    const data = await this.readAll()
+    const newItem: BookingEvent = { ...bookingEvent, id: (Math.random() + 1).toString(36).substring(7) }
+    data.push(newItem)
+    setData(this.endpoint, data)
+    return newItem
+  }
+
+  async delete(id: string) {
+    const data = await this.readAll()
+    const filteredData = data.filter(e => e.id !== id)
+    setData(this.endpoint, filteredData)
+  }
+}
+
 class ApiSessionStorage implements ApiContract {
   tags: ApiContractTags
+  bookableItems: ApiSessionStorageBookableItems
+  bookingEvents: ApiSessionStorageBookingEvents
   constructor() {
     this.tags = new ApiSessionStorageTags()
+    this.bookableItems = new ApiSessionStorageBookableItems()
+    this.bookingEvents = new ApiSessionStorageBookingEvents()
   }
 }
 export { ApiSessionStorage }

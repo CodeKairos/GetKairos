@@ -1,6 +1,6 @@
 export interface User {
   name: string
-  id: string
+  readonly id: string
   image?: string
   icon?: string
   tags?: string[]

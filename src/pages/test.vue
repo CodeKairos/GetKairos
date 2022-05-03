@@ -7,6 +7,7 @@ import '@quasar/quasar-ui-qcalendar/src/QCalendarTransitions.sass'
 import '@quasar/quasar-ui-qcalendar/src/QCalendarResource.sass'
 
 import { initAPI } from '~/remote/KairosApi'
+import type { BookableItem, BookingEvent } from '~/remote/ApiContract'
 import { TagCloudName } from '~/remote/ApiContract'
 import getKairosConfig from '~/getkairos.config.json'
 
@@ -33,6 +34,30 @@ async function testAPI() {
   await api.tags.delete(TagCloudName.bookableTypes, 'test11')
   console.log('after2:',
     await api.tags.readAll(TagCloudName.bookableTypes))
+
+  let a = await api.bookableItems.readAll()
+  console.log('bookableItems init ->', a)
+  const p: BookableItem|undefined = await api.bookableItems.create({ name: 'Jupyter', type: 'meeting room' })
+  console.log('bookableItems new item: ', p)
+  a = await api.bookableItems.readAll()
+  console.log('bookableItems create ->', a)
+  if (p !== undefined) {
+    await api.bookableItems.delete(p.id)
+    a = await api.bookableItems.readAll()
+    console.log('bookableItems delete ->', a)
+  }
+
+  let b = await api.bookingEvents.readAll()
+  console.log('bookingEvents init ->', b)
+  const bp: BookingEvent|undefined = await api.bookingEvents.create({ bookableItemId: 'test12', start: '123', end: '123', creatorId: '213' })
+  console.log('bookingEvents new item: ', bp)
+  b = await api.bookingEvents.readAll()
+  console.log('bookingEvents create ->', b)
+  if (bp !== undefined) {
+    await api.bookingEvents.delete(bp.id)
+    b = await api.bookingEvents.readAll()
+    console.log('bookingEvents delete ->', b)
+  }
 }
 
 onMounted(async() => {

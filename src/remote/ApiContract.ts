@@ -1,17 +1,18 @@
 import { TagCloudName } from './ApiContractTags'
 import type { ApiContractTags } from './ApiContractTags'
 import type { ApiContractUsers, User } from './ApiContractUsers'
-import type { ApiContractBookableItem } from './ApiContractBookableItem'
-import type { ApiContractBookingEvent } from './ApiContractBookingEvent'
+import type { ApiContractBookableItems, BookableItem, BookableItemBase } from './ApiContractBookableItems'
+import type { ApiContractBookingEvents, BookingEvent, BookingEventBase } from './ApiContractBookingEvents'
 
 export interface ApiContract {
   tags: ApiContractTags
-
+  bookableItems: ApiContractBookableItems
+  bookingEvents: ApiContractBookingEvents
 }
 
 export type {
-  ApiContractBookableItem,
-  ApiContractBookingEvent,
+  ApiContractBookableItems, BookableItemBase, BookableItem,
+  ApiContractBookingEvents, BookingEventBase, BookingEvent,
   ApiContractUsers, User,
   ApiContractTags,
 }

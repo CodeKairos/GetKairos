@@ -1,5 +1,18 @@
 {
-  "bookableItems": [],
+  "bookableItems": [
+    {
+      "id": "0",
+      "name": "Io",
+      "type": "meeting room",
+      "tags": [1, 2]
+    },
+    {
+      "id": "1",
+      "name": "Ceres",
+      "type": "meeting room",
+      "tags": [1, 2]
+    }
+  ],
   "bookingEvents": [],
   "users":[],
   "bookableTypes": [

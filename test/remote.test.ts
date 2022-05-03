@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import getKairosConfig from '~/getkairos.config.json'
 import { initAPI } from '~/remote/KairosApi'
-import type { ApiContract } from '~/remote/ApiContract'
+import type { ApiContract, BookableItemBase, BookingEventBase } from '~/remote/ApiContract'
 import { TagCloudName } from '~/remote/ApiContractTags'
 
 const tagCloudName = TagCloudName.bookableTypes
@@ -69,17 +69,73 @@ function api_test_tags(api: ApiContract, apiProvider: string) {
   })
 }
 
+function api_test_items_and_events(api: ApiContract, apiProvider: string) {
+  describe(`Remote API test bookable items: ${apiProvider}`, () => {
+    it('can add and remove a bookable items', async() => {
+      const item: BookableItemBase = { name: 'test name', type: 'test type', tags: ['tag1', 'tag2'], photos: ['test/photo.png'], icon: 'test/icon.png', relatedProps: [{ seats: 2 }] }
+
+      const initialData = await api.bookableItems.readAll()
+      const initialLength = initialData.length
+
+      const newItem = await api.bookableItems.create(item)
+      expect(newItem === undefined).to.eq(false)
+      if (newItem !== undefined) {
+        let data = await api.bookableItems.readAll()
+        expect(data.some(x => x.id === newItem.id)).to.eq(true)
+
+        const incremented = data.length
+        expect(initialLength).to.eq(incremented - 1)
+
+        await api.bookableItems.delete(newItem.id)
+        data = await api.bookableItems.readAll()
+        expect(data.some(x => x.id === newItem.id)).to.eq(false)
+
+        const cleanedLength = data.length
+        expect(initialLength).to.eq(cleanedLength)
+      }
+    }, 125000)
+  })
+  describe(`Remote API test bookable items: ${apiProvider}`, () => {
+    it('can add and remove a bookable events', async() => {
+      const item: BookingEventBase = { bookableItemId: 'test12', start: '123', end: '123', creatorId: '213' }
+
+      const initialData = await api.bookingEvents.readAll()
+      const initialLength = initialData.length
+
+      const newItem = await api.bookingEvents.create(item)
+      expect(newItem === undefined).to.eq(false)
+      if (newItem !== undefined) {
+        let data = await api.bookingEvents.readAll()
+        expect(data.some(x => x.id === newItem.id)).to.eq(true)
+
+        const incremented = data.length
+        expect(initialLength).to.eq(incremented - 1)
+
+        await api.bookingEvents.delete(newItem.id)
+        data = await api.bookingEvents.readAll()
+        expect(data.some(x => x.id === newItem.id)).to.eq(false)
+
+        const cleanedLength = data.length
+        expect(initialLength).to.eq(cleanedLength)
+      }
+    }, 125000)
+  })
+}
+
 for (const apiProvider of getKairosConfig.testApiProviders) {
   if (apiProvider === 'json-server') {
     const api = initAPI(apiProvider, getKairosConfig.testJsonServerBaseURL)
     api_test_tags(api, apiProvider)
+    api_test_items_and_events(api, apiProvider)
   }
   else if (apiProvider === 'firestore') {
     const api = initAPI(apiProvider, getKairosConfig.testJsonServerBaseURL)
     api_test_tags(api, apiProvider)
+    api_test_items_and_events(api, apiProvider)
   }
   else {
     const api = initAPI(apiProvider)
     api_test_tags(api, apiProvider)
+    api_test_items_and_events(api, apiProvider)
   }
 }
